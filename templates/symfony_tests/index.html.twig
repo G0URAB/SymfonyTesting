@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Tests{% endblock %}
+
+{% block body %}
+<div class="mt-4 border border-dark rounded shadow-lg p-4">
+    <h2 class="text-center"> An app for the purpose of Symfony tests!!</h2>
+    <div class="d-flex flex-row justify-content-around mt-5">
+        <a href="{{ path('app_login') }}" class="btn btn-success">Login</a>
+        <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">Register</a>
+    </div>
+</div>
+
+{% endblock %}
