@@ -55,6 +55,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
+            $this->addFlash('success','Your account has been created!! You can login now :)');
             return $this->redirectToRoute('symfony_tests');
         }
 
