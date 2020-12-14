@@ -8,3 +8,6 @@ In this repo, I am going to provide some sample symfony functional test examples
 
 ## So far the repository has following functional tests as follows:
 - [Registration Process Test](https://github.com/G0URAB/symfonyTestExamples/blob/master/tests/Functional/Controller/RegistrationControllerTest.php)
+- [Login with data provider (+fastLogin)](https://github.com/G0URAB/symfonyTestExamples/blob/master/tests/Functional/Controller/SecurityControllerTest.php)
+- [3 essential stages of file upload](https://github.com/G0URAB/symfonyTestExamples/blob/master/tests/Functional/Controller/DashboardControllerTest.php#L27)
+- [An AJAX request and response](https://github.com/G0URAB/symfonyTestExamples/blob/master/tests/Functional/Controller/DashboardControllerTest.php#L65)
