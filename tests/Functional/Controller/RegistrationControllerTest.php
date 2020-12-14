@@ -41,13 +41,13 @@ class RegistrationControllerTest extends WebTestCase
 
     public function testNewUserRegistration()
     {
-        $this->form['registration_form[email]']->setValue('grv_sh@yahoo.co.in');
-        $this->form['registration_form[plainPassword][first]']->setValue('morePizza');
-        $this->form['registration_form[plainPassword][second]']->setValue('morePizza');
+        $this->form['registration_form[email]']->setValue('grv_sh@rediffmail.com');
+        $this->form['registration_form[plainPassword][first]']->setValue('mangoDrops');
+        $this->form['registration_form[plainPassword][second]']->setValue('mangoDrops');
         $this->client->submit($this->form);
         $this->assertResponseRedirects("/");
 
         $email = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($email, 'To', 'grv_sh@yahoo.co.in');
+        $this->assertEmailHeaderSame($email, 'To', 'grv_sh@rediffmail.com');
     }
 }

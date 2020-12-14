@@ -5,6 +5,11 @@
 {% block body %}
     <div class="mt-4 border border-dark rounded shadow-lg p-4">
         <h2 class="text-center"> Welcome to dashboard!! </h2>
-
+        {% if app.user.profilePicture %}
+            <div class="d-flex flex-row justify-content-center">
+                <img src="{{ asset('images/profile/') }}{{ app.user.profilePicture }}">
+            </div>
+        {% endif %}
+        {{ form(profileForm) }}
     </div>
 {% endblock %}
