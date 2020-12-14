@@ -2,15 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ProfileType;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractController
 {
+
+    private $security;
+
     /**
      * @Route("/", name="symfony_tests")
      */
@@ -29,22 +35,53 @@ class DashboardController extends AbstractController
      */
     public function dashboard(Request $request, FileUploader $uploader): Response
     {
-        $profileForm = $this->createForm(ProfileType::class,$this->getUser());
+        $profileForm = $this->createForm(ProfileType::class, $this->getUser());
 
         $profileForm->handleRequest($request);
 
-        if($profileForm->isSubmitted()){
+        if ($profileForm->isSubmitted() && $profileForm->isValid()) {
             $profile = $profileForm->getData();
-            $picture = $uploader->upload($profileForm->get('profilePicture')->getData());
+            $picture = $profileForm->get('profilePicture')->getData();
             $entityManager = $this->getDoctrine()->getManager();
-            $profile->setProfilePicture($picture);
+            if ($picture) {
+                if ($profile->getProfilePicture()) {
+                    unlink($this->getParameter('profile_picture_directory') . '/' . $profile->getProfilePicture());
+                }
+                $picture = $uploader->upload($picture);
+                $profile->setProfilePicture($picture);
+            }
             $entityManager->persist($profile);
             $entityManager->flush();
             return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('symfony_tests/dashboard.html.twig', [
-            'profileForm'=>$profileForm->createView()
+            'profileForm' => $profileForm->createView()
         ]);
+    }
+
+    /**
+     * @Route("/whoami", name="whoami")
+     * @param Request $request
+     * @param Security $security
+     * @return mixed
+     */
+    public function getMyDetails(Request $request, Security $security)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $id = $request->request->get('id');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository(User::class)->find($id);
+            if ($id && $security->isGranted('ROLE_USER')) {
+                return new JsonResponse([
+                    'firstName' => $user->getFirstName(),
+                    'lastName' => $user->getLastName(),
+                    'gender' => $user->getGender(),
+                    'age' => $user->getAge()
+                ], 200);
+            } else
+                return new JsonResponse(['error' => 'Please login to use this API'], 401);
+        } else
+            return new Response("Invalid request", 401);
     }
 }
