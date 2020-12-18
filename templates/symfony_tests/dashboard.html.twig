@@ -6,10 +6,25 @@
     <div class="mt-4 border border-dark rounded shadow-lg p-4">
         <h2 class="text-center"> Welcome to dashboard!! </h2>
         {% if app.user.profilePicture %}
-            <div class="d-flex flex-row justify-content-center">
-                <img src="{{ asset('images/profile/') }}{{ app.user.profilePicture }}">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" id="profile-picture">
+                <img width="30%" src="{{ asset('images/profile/') }}{{ app.user.profilePicture }}">
+                <a id="delete-picture" class="btn btn-danger mt-3" href="{{ path('delete_picture',{'id':app.user.id}) }}"> Delete Picture</a>
             </div>
         {% endif %}
         {{ form(profileForm) }}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+   <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#delete-picture").on("click",function(event) {
+                event.preventDefault();
+                if(confirm("Are you sure to delete picture?"))
+                    window.location.href = $(this).attr("href");
+            });
+        });
+    </script>
+
+{%  endblock %}

@@ -236,9 +236,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $profilePicture
+     * @param $profilePicture
      */
-    public function setProfilePicture(string $profilePicture): void
+    public function setProfilePicture($profilePicture): void
     {
         $this->profilePicture = $profilePicture;
     }

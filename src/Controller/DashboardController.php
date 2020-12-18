@@ -61,6 +61,25 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * @Route("/delete/picture/{id}", name="delete_picture")
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function deletePicture(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        if (file_exists($this->getParameter('profile_picture_directory') . '/' . $user->getProfilePicture())) {
+                unlink($this->getParameter('profile_picture_directory') . '/' . $user->getProfilePicture());
+        }
+        $user->setProfilePicture(null);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute("dashboard");
+    }
+
+    /**
      * @Route("/whoami", name="whoami")
      * @param Request $request
      * @param Security $security
