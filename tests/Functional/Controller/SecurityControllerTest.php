@@ -41,7 +41,7 @@ class SecurityControllerTest extends WebTestCase
         $this->form['email']->setValue($username);
         $this->form['password']->setValue($password);
         $this->client->submit($this->form);
-        $this->assertResponseRedirects("/dashboard");
+        $this->assertResponseRedirects("/index");
 
         //or
         /*$this->client->request('GET','/dashboard');
