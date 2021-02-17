@@ -25,7 +25,7 @@ jobs:
 
       - name: Functional securityControllerTest
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
-        
+
       - name: Install ChromeDriver
         run: |
           CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1) \
@@ -43,4 +43,4 @@ jobs:
           PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
           PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
           PANTHER_NO_SANDBOX: "1"
-        run: sudo phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver phpunit tests/Panther/
