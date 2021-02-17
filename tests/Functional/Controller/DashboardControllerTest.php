@@ -120,10 +120,10 @@ class DashboardControllerTest extends WebTestCase
     }
 
     public function deleteTestUser($user)
-    {   
+    {
         $picture = $this->client->getKernel()->getProjectDir().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."images".
             DIRECTORY_SEPARATOR."profile".DIRECTORY_SEPARATOR.$user->getProfilePicture();
-        if(file_exists($picture))
+        if($user->getProfilePicture())
         {
             chmod($picture, 0644);
             unlink($picture);
