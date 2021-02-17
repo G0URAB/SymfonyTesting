@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Run Tests:
 
     runs-on: ubuntu-latest
 
@@ -39,4 +39,4 @@ jobs:
             && chromedriver --version
 
       - name: Panther End2End Test
-        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver/chromedriver ./bin/phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver/chromedriver phpunit tests/Panther/
