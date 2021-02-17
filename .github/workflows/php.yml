@@ -17,5 +17,11 @@ jobs:
     - name: Install all dependencies
       run: composer update
 
-    - name: Run all functional tests
-      run: sudo phpunit tests/Functional/
+    - name: Functional dashboardControllerTest
+      run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
+
+    - name: Functional registrationControllerTest
+        run: sudo phpunit tests/Functional/Controller/RegistrationControllerTest.php
+
+    - name: Functional securityControllerTest
+        run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
