@@ -26,14 +26,5 @@ jobs:
       - name: Functional securityControllerTest
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
 
-      - name: Install ChromeDriver and GoogleChrome
-        run: sudo apt-get update
-             && sudo apt-get remove google-chrome-stable
-             && sudo apt-get install chromium-driver google-chrome-stable
-
       - name: Panther End2End Test
-        env:
-          PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
-          PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
-          PANTHER_NO_SANDBOX: "1"
         run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/bin/chromedriver PANTHER_NO_SANDBOX=1 phpunit tests/Panther/
