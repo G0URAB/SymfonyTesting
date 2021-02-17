@@ -36,4 +36,4 @@ jobs:
           PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
           PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
           PANTHER_NO_SANDBOX: "1"
-        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/bin/chromedriver phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/bin/chromedriver PANTHER_NO_SANDBOX=1 phpunit tests/Panther/
