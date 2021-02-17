@@ -73,4 +73,13 @@ class RegistrationControllerTest extends WebTestCase
             $this->entityManager->flush();
         }
     }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // doing this is recommended to avoid memory leaks
+        $this->entityManager->close();
+        $this->entityManager = null;
+    }
 }

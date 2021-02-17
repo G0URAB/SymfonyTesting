@@ -145,4 +145,13 @@ class DashboardControllerTest extends WebTestCase
         }
     }
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        // doing this is recommended to avoid memory leaks
+        $this->entityManager->close();
+        $this->entityManager = null;
+    }
+
 }
