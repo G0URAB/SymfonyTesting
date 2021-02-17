@@ -67,7 +67,7 @@ class SecurityControllerTest extends WebTestCase
         $this->createTestUser();
         $user1 = static::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in");
         $this->client->loginUser($user1);
-        $this->client->request('GET','/index');
+        $this->client->request('GET','/dashboard');
         $this->assertResponseIsSuccessful();
 
         $this->deleteTestUser($user1);
