@@ -42,7 +42,7 @@ class SecurityControllerTest extends WebTestCase
     {
         return [
             ['grv_sh@yahoo.co.in', 'morePizza'],
-            ['grv_sh@rediffmail.com','mangoDrops']
+            /*['grv_sh@rediffmail.com','mangoDrops']*/
         ];
     }
 
