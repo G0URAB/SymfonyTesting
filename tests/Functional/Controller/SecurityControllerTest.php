@@ -43,11 +43,11 @@ class SecurityControllerTest extends WebTestCase
         $this->form['password']->setValue($password);
         $this->client->submit($this->form);
         $this->assertResponseRedirects("/dashboard");
-
-        $this->deleteTestUser($user);
         //or
         /*$this->client->request('GET','/dashboard');
         $this->assertResponseIsSuccessful();*/
+
+        $this->deleteTestUser($user);
     }
 
     public function loginCredentials()
