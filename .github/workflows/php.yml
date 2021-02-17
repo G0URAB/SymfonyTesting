@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -18,4 +18,4 @@ jobs:
       run: composer update
 
     - name: Run all functional tests
-      run: sudo phpunit tests/Functional/
+      run: ./bin/phpunit tests/Functional/

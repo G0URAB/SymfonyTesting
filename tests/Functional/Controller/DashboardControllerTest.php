@@ -72,7 +72,8 @@ class DashboardControllerTest extends WebTestCase
         $this->assertFalse($oldPicture==$newPicture);
 
         //3rd test new file's existence in expected folder
-        $this->assertTrue(file_exists($this->client->getKernel()->getProjectDir()."/public/images/profile/".$newPicture));
+        $this->assertTrue(file_exists($this->client->getKernel()->getProjectDir().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."images".
+            DIRECTORY_SEPARATOR."profile".DIRECTORY_SEPARATOR.$newPicture));
         $this->deleteTestUser($user1);
     }
 
