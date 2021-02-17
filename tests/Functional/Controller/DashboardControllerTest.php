@@ -28,6 +28,12 @@ class DashboardControllerTest extends WebTestCase
     {
         //Do a fast-login
         $user1 = static::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in");
+        if(!$user1)
+        {
+            (new RegistrationControllerTest)->testNewUserRegistration();
+            $user1 = static::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in");
+        }
+
         $this->client->loginUser($user1);
         $oldPicture = $user1->getProfilePicture();
 
