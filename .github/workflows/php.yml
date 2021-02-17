@@ -27,4 +27,8 @@ jobs:
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
 
       - name: Panther End2End Test
+        env:
+          PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
+          PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
+          PANTHER_NO_SANDBOX: "1"
         run: sudo phpunit tests/Panther/
