@@ -70,8 +70,6 @@ class DashboardControllerTest extends WebTestCase
         //3rd test new file's existence in expected folder
         $this->assertTrue(file_exists($this->client->getKernel()->getProjectDir()."/public/images/profile/".$newPicture));
 
-        /* Test commit*/
-
     }
 
 
