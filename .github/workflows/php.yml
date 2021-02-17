@@ -27,4 +27,4 @@ jobs:
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
 
       - name: Panther End2End Test
-        run: sudo bin/phpunit tests/Panther/
+        run: sudo phpunit tests/Panther/
