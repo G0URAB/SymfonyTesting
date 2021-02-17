@@ -39,4 +39,4 @@ jobs:
             && chromedriver --version
 
       - name: Panther End2End Test
-        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver/chromedriver phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=/usr/local/bin/chromedriver phpunit tests/Panther/
