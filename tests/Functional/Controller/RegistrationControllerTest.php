@@ -2,6 +2,7 @@
 
 namespace App\Tests\Functional\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -24,6 +25,7 @@ class RegistrationControllerTest extends WebTestCase
             ->getManager();
         $this->crawler = $this->client->request('GET', '/register');
         $this->form = $this->crawler->selectButton('Register')->form();
+        $this->makeSureDatabaseIsEmpty();
     }
 
     public function testRegistrationExistence()
@@ -60,5 +62,15 @@ class RegistrationControllerTest extends WebTestCase
 
         /*$email = $this->getMailerMessage(0);
         $this->assertEmailHeaderSame($email, 'To', 'grv_sh@yahoo.co.in');*/
+    }
+
+    public function makeSureDatabaseIsEmpty()
+    {
+        $users =$this->entityManager->getRepository(User::class)->findAll();
+        foreach($users as $user)
+        {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
     }
 }

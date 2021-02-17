@@ -43,13 +43,9 @@ class DashboardController extends AbstractController
             $profile = $profileForm->getData();
             $picture = $profileForm->get('profilePicture')->getData();
             $entityManager = $this->getDoctrine()->getManager();
-            if ($picture) {
-                if ($profile->getProfilePicture()) {
-                    unlink($this->getParameter('profile_picture_directory') . '/' . $profile->getProfilePicture());
-                }
-                $picture = $uploader->upload($picture);
-                $profile->setProfilePicture($picture);
-            }
+            $picture = $uploader->upload($picture);
+            $profile->setProfilePicture($picture);
+
             $entityManager->persist($profile);
             $entityManager->flush();
             return $this->redirectToRoute('dashboard');

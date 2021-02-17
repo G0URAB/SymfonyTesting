@@ -22,7 +22,8 @@ class DashboardControllerTest extends WebTestCase
             ->get('doctrine')
             ->getManager();
         $this->passwordEncoder = $container->get("security.user_password_encoder.generic");
-        $crawler= $this->client->request('GET', '/dashboard');
+        $crawler= $this->client->request('GET', '/');
+        $this->makeSureDatabaseIsEmpty();
     }
 
     public function testUnauthorizedLogin()
@@ -64,17 +65,20 @@ class DashboardControllerTest extends WebTestCase
         $this->assertResponseRedirects();
 
         //2nd test confirm the file has been changed in database
-        $newPicture = self::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in")->getProfilePicture();
-        /*$this->assertFalse($oldPicture==$newPicture);*/
+        $this->entityManager->refresh($user1);
+        $newPicture = $user1->getProfilePicture();
+
+        $this->assertFalse($oldPicture==$newPicture);
 
         //3rd test new file's existence in expected folder
         $this->assertTrue(file_exists($this->client->getKernel()->getProjectDir()."/public/images/profile/".$newPicture));
-
+        $this->deleteTestUser($user1);
     }
 
 
     public function testXmlHttpRequest()
     {
+        $this->createTestUser();
         $user1 = self::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in");
         $this->client->loginUser($user1);
         $id = $user1->getId();
@@ -105,6 +109,10 @@ class DashboardControllerTest extends WebTestCase
                 'morePizza'
             )
         );
+        $user->setFirstName("Gourab");
+        $user->setLastName("Sahu");
+        $user->setGender("Male");
+        $user->setAge("31");
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
@@ -112,10 +120,27 @@ class DashboardControllerTest extends WebTestCase
     }
 
     public function deleteTestUser($user)
-    {
-        unlink($this->client->getKernel()->getProjectDir()."/public/images/profile/".$user->getProfilePicture());
+    {   
+        $picture = $this->client->getKernel()->getProjectDir().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."images".
+            DIRECTORY_SEPARATOR."profile".DIRECTORY_SEPARATOR.$user->getProfilePicture();
+        if(file_exists($picture))
+        {
+            chmod($picture, 0644);
+            unlink($picture);
+        }
+
         $this->entityManager->remove($user);
         $this->entityManager->flush();
+    }
+
+    public function makeSureDatabaseIsEmpty()
+    {
+        $users =$this->entityManager->getRepository(User::class)->findAll();
+        foreach($users as $user)
+        {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
     }
 
 }

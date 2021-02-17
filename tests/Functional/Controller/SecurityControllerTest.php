@@ -26,6 +26,7 @@ class SecurityControllerTest extends WebTestCase
         $this->passwordEncoder = $container->get("security.user_password_encoder.generic");
         $this->crawler= $this->client->request('GET', '/login');
         $this->form = $this->crawler->selectButton('Sign in')->form();
+        $this->makeSureDatabaseIsEmpty();
     }
 
     /**
@@ -35,7 +36,7 @@ class SecurityControllerTest extends WebTestCase
      */
     public function testLogin($username,$password)
     {
-        $this->createTestUser();
+        $user = $this->createTestUser();
 
         //Test login with dataProvider option
         $this->form['email']->setValue($username);
@@ -43,6 +44,7 @@ class SecurityControllerTest extends WebTestCase
         $this->client->submit($this->form);
         $this->assertResponseRedirects("/dashboard");
 
+        $this->deleteTestUser($user);
         //or
         /*$this->client->request('GET','/dashboard');
         $this->assertResponseIsSuccessful();*/
@@ -62,6 +64,7 @@ class SecurityControllerTest extends WebTestCase
         but implementing functional tests in a protected-page. Fast login can be used to reduce time
         for the time-taking normal login process. */
 
+        $this->createTestUser();
         $user1 = static::$container->get(UserRepository::class)->findOneByEmail("grv_sh@yahoo.co.in");
         $this->client->loginUser($user1);
         $this->client->request('GET','/dashboard');
@@ -92,5 +95,15 @@ class SecurityControllerTest extends WebTestCase
          unlink($this->client->getKernel()->getProjectDir()."/public/images/profile/".$user->getProfilePicture());
         $this->entityManager->remove($user);
         $this->entityManager->flush();
+    }
+
+    public function makeSureDatabaseIsEmpty()
+    {
+        $users =$this->entityManager->getRepository(User::class)->findAll();
+        foreach($users as $user)
+        {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+        }
     }
 }
