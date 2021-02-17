@@ -58,7 +58,8 @@ class DashboardControllerTest extends WebTestCase
         $form["profile[lastName]"]->setValue('Sahu');
         $form["profile[gender]"]->setValue(0);
         $form["profile[age]"]->setValue(31);
-        $form["profile[profilePicture]"]->upload($this->client->getKernel()->getProjectDir()."/public/images/test_profile/mickey.JPG");
+        $form["profile[profilePicture]"]->upload($this->client->getKernel()->getProjectDir().DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."images".
+            DIRECTORY_SEPARATOR."test_profile".DIRECTORY_SEPARATOR."mickey.JPG");
         $this->client->submit($form);
 
         //1st test check response
