@@ -16,7 +16,7 @@ class End2EndTest extends PantherTestCase
 
     private $test_pic_directory;
 
-    public function setUp()
+    public function setUp(): void
     {
         self::bootKernel();
         $container = self::$container;
