@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Install all dependencies
-      run: composer update
+      - name: Install all dependencies
+        run: composer update
 
-    - name: Functional dashboardControllerTest
-      run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
+      - name: Functional dashboardControllerTest
+        run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
 
-    - name: Functional registrationControllerTest
+      - name: Functional registrationControllerTest
         run: sudo phpunit tests/Functional/Controller/RegistrationControllerTest.php
 
-    - name: Functional securityControllerTest
+      - name: Functional securityControllerTest
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
