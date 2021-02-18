@@ -3,7 +3,6 @@
 namespace App\Tests\Panther;
 
 use App\Entity\User;
-use RuntimeException;
 use Symfony\Component\Panther\PantherTestCase;
 
 class End2EndTest extends PantherTestCase
@@ -28,18 +27,11 @@ class End2EndTest extends PantherTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->client = static::createPantherClient();
-        try{
-            $this->crawler = $this->client->request('GET', '/login');
-            $this->form = $this->crawler->selectButton('Sign in')->form();
-        }
-        catch(RuntimeException $e)
-        {
-            $this->client->quit();
-            $this->client = static::createPantherClient();
-            $this->crawler = $this->client->request('GET', '/login');
-            $this->form = $this->crawler->selectButton('Sign in')->form();
-        }
+        $this->client = static::createPantherClient([
+            'port' => 8080
+        ]);
+        $this->crawler = $this->client->request('GET', '/login');
+        $this->form = $this->crawler->selectButton('Sign in')->form();
         $this->makeSureDatabaseIsEmpty();
     }
 
@@ -143,5 +135,6 @@ class End2EndTest extends PantherTestCase
         // doing this is recommended to avoid memory leaks
         $this->entityManager->close();
         $this->entityManager = null;
+        $this->client->quit();
     }
 }
