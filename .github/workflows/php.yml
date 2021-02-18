@@ -14,14 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install all dependencies
-        run: composer update
-
-      - name: Setup PHP with PECL extension
+      - name: Setup PHP 7.4
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: phpunit
+
+      - name: Install all dependencies
+        run: composer update
 
       - name: Functional dashboardControllerTest
         run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
