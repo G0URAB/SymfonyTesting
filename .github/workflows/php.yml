@@ -23,17 +23,17 @@ jobs:
         run: composer update
 
       - name: Functional dashboardControllerTest
-        run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
+        run: sudo bin/phpunit tests/Functional/Controller/DashboardControllerTest.php
 
       - name: Functional registrationControllerTest
-        run: sudo phpunit tests/Functional/Controller/RegistrationControllerTest.php
+        run: sudo bin/phpunit tests/Functional/Controller/RegistrationControllerTest.php
 
       - name: Functional securityControllerTest
-        run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
+        run: sudo bin/phpunit tests/Functional/Controller/SecurityControllerTest.php
 
       - name: Setup chrome driver and detect it
         run: composer require --dev dbrekelmans/bdi
              && sudo vendor/bin/bdi detect drivers
 
       - name: Panther End2End Test
-        run: sudo PANTHER_CHROME_DRIVER_BINARY=drivers/chromedriver PANTHER_NO_SANDBOX=1 PANTHER_CHROME_ARGUMENTS=--disable-dev-shm-usage phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=drivers/chromedriver PANTHER_NO_SANDBOX=1 PANTHER_CHROME_ARGUMENTS=--disable-dev-shm-usage bin/phpunit tests/Panther/
