@@ -21,7 +21,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+
+      - name: Setup php unit
       - uses: php-actions/phpunit@v2
+        with:
+          configuration: phpunit.xml.dist
 
       - name: Functional dashboardControllerTest
         run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
