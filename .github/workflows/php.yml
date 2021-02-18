@@ -31,4 +31,4 @@ jobs:
              && sudo vendor/bin/bdi detect drivers
 
       - name: Panther End2End Test
-        run: sudo PANTHER_CHROME_DRIVER_BINARY=drivers/chromedriver phpunit tests/Panther/
+        run: sudo PANTHER_CHROME_DRIVER_BINARY=drivers/chromedriver PANTHER_NO_SANDBOX=1 phpunit tests/Panther/
