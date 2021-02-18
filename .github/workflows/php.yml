@@ -26,10 +26,9 @@ jobs:
       - name: Functional securityControllerTest
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
 
-      - name: Downgrade Google Chrome to 85
-        run: |
-          wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_85.0.4183.121-1_amd64.deb"
-          sudo apt-get install --allow-downgrades ./google-chrome-stable_85.0.4183.121-1_amd64.deb
+      - name: Setup chrome driver and detect it
+        run: composer require --dev dbrekelmans/bdi
+             && sudo vendor/bin/bdi detect drivers
 
       - name: Panther End2End Test
         run: sudo phpunit tests/Panther/
