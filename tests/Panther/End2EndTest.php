@@ -37,6 +37,7 @@ class End2EndTest extends PantherTestCase
         {
             $this->client->quit();
             $this->client = static::createPantherClient();
+            $this->crawler = $this->client->request('GET', '/login');
             $this->form = $this->crawler->selectButton('Sign in')->form();
         }
         $this->makeSureDatabaseIsEmpty();
