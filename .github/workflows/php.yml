@@ -30,6 +30,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install chromium-chromedriver firefox-geckodriver
 
       - name: Panther End2End Test
-        env:
-          PANTHER_CHROME_DRIVER_BINARY: "/usr/bin/chromedriver"
         run: sudo phpunit tests/Panther/
