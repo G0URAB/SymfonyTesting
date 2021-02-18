@@ -26,7 +26,8 @@ jobs:
       - name: Functional securityControllerTest
         run: sudo phpunit tests/Functional/Controller/SecurityControllerTest.php
 
-      - uses: nanasess/setup-chromedriver@master
+      - name: Installing ChromeDriver and geckodriver
+        run: apt-get install chromium-chromedriver firefox-geckodriver
 
       - name: Panther End2End Test
         env:
