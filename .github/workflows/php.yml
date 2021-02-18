@@ -17,11 +17,6 @@ jobs:
       - name: Install all dependencies
         run: composer update
 
-      - name: Setup PHP 7.4
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-
       - name: Functional dashboardControllerTest
         run: sudo ./vendor/bin/simple-phpunit tests/Functional/Controller/DashboardControllerTest.php
 
