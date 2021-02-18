@@ -23,9 +23,7 @@ jobs:
           php-version: '7.4'
 
       - name: Setup php unit
-        uses: php-actions/phpunit@v2
-        with:
-          configuration: phpunit.xml.dist
+        run: composer require --dev phpunit/phpunit
 
       - name: Functional dashboardControllerTest
         run: sudo phpunit tests/Functional/Controller/DashboardControllerTest.php
